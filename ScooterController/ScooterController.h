@@ -10,6 +10,7 @@ public:
     int lastSentPacketSize;
     
     enum Command {
+        TEMPLATE_PACKET,
         RACE_SPEED_LIMIT,
         SPORT_SPEED_LIMIT,
         ECO_SPEED_LIMIT,

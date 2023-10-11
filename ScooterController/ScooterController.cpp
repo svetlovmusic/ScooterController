@@ -4,6 +4,8 @@ ScooterController::ScooterController() {
     eepromMappings[0] = {"speedLimit", 0};
     eepromMappings[1] = {"brightness", 4}; //example. how to add new data address to eeprom
 
+    commands[TEMPLATE_PACKET] = {templatePacket, sizeof(templatePacket)};
+    
     commands[RACE_SPEED_LIMIT] = {setRaceMaxSpeed, sizeof(setRaceMaxSpeed)};
     commands[SPORT_SPEED_LIMIT] = {setSportMaxSpeed, sizeof(setSportMaxSpeed)};
     commands[ECO_SPEED_LIMIT] = {setEcoMaxSpeed, sizeof(setEcoMaxSpeed)};

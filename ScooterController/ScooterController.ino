@@ -15,7 +15,14 @@ void setup() {
   scooter.sendCommand(ScooterController::ECO_SPEED_LIMIT, intToBytes(speedLimit), false, true, false);    //not blink, use serial begin, not use serial end
   scooter.sendCommand(ScooterController::SPORT_SPEED_LIMIT, intToBytes(speedLimit), false, false, false); //not blink, not use serial begin, not use serial end
   scooter.sendCommand(ScooterController::RACE_SPEED_LIMIT, intToBytes(speedLimit), true, false, true);    //blink, not use serial begin, use serial end
-
+  
+  // example use TEMPLATE_PACKET with new data
+  // byte newTemplateData[] = {0x01, 0x00};
+  // scooter.sendCommand(ScooterController::TEMPLATE_PACKET, newTemplateData);
+  
+  // example use TEMPLATE_PACKET without new data, just send TEMPLATE_PACKET as is
+  // scooter.sendCommand(ScooterController::TEMPLATE_PACKET);
+  
   Serial.begin(115200);
   Serial.println();
   Serial.println("Booting...");
