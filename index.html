@@ -8,20 +8,41 @@
 </body>
   <script>
 	  fetch('ScooterController/HTMLData.h')
-		.then(response => response.text())
-		.then(data => {
-			const regex = /.*====\((.*?)\)====/s;
-			const match = data.match(regex);
-			if (match) {
-				const extractedData = match[1];
-				const htmlElement = document.getElementsByTagName('body');
-				htmlElement[0].innerHTML = extractedData;
-			} else {
-				console.error('Pattern not found in HTMLData.h');
-			}
-		})
-		.catch(error => {
-			console.error('Error fetching HTMLData.h:', error);
-		});
+	  .then(response => response.text())
+	  .then(data => {
+		  const regex = /.*====\((.*?)\)====/s;
+		  const match = data.match(regex);
+		  if (match) {
+			  const extractedData = match[1];
+			  const htmlElement = document.getElementsByTagName('body');
+			  htmlElement[0].innerHTML = extractedData;
+	  
+			  const replacements = {
+				  SPEED_LIMIT: 55,
+				  SERIES_ID: 0
+			  };
+	  
+			  const scriptRegex = /<script>([\s\S]*?)<\/script>/g;
+			  let scriptMatch;
+			  while (scriptMatch = scriptRegex.exec(extractedData)) {
+				  let scriptCode = scriptMatch[1];
+	  
+				  for (let placeholder in replacements) {
+					  const regex = new RegExp(`{{${placeholder}}}`, 'g');
+					  scriptCode = scriptCode.replace(regex, replacements[placeholder]);
+				  }
+	  
+				  const scriptElement = document.createElement('script');
+				  scriptElement.textContent = scriptCode;
+				  document.body.appendChild(scriptElement);
+			  }
+		  } else {
+			  console.error('Pattern not found in HTMLData.h');
+		  }
+	  
+	  })
+	  .catch(error => {
+		  console.error('Error fetching HTMLData.h:', error);
+	  });
   </script>
 </html>
