@@ -115,6 +115,7 @@ const char PROGMEM HTML_DATA[] = R"====(
   </div>
 
   <script>
+    //todo: check this vars. defaultSpeedLimit = 22, defaultSeriesId = 0
     var defaultSpeedLimit = {{SPEED_LIMIT}};
     var defaultSeriesId = {{SERIES_ID}};
     
@@ -176,6 +177,7 @@ const char PROGMEM HTML_DATA[] = R"====(
     function initializeScooterModel() {
       var seriesId = defaultSeriesId;
     
+      //todo: check this 
       if (seriesId === 0) {
         document.getElementById("gtModel").checked = true;
         updateScooterModel("0");

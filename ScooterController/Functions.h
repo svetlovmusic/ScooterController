@@ -43,6 +43,7 @@ String getStringFromProgmem(const char *progmemPointer) {
 }
 
 String generateHtmlResponse() {
+    //todo: check this
     String html = getStringFromProgmem(HTML_DATA);
     html.replace("{{SPEED_LIMIT}}", String(speedLimit));
     html.replace("{{SERIES_ID}}", String(seriesId));
