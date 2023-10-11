@@ -1,8 +1,9 @@
 #include "ScooterController.h"
-#include "Functions.h"
 
 #define DEFAULT_SPEED_LIMIT 22
-#define DEFAULT_SERIES_ID 0 //gt = 0, p =1...
+#define DEFAULT_SERIES_ID 0 //gt = 0, p = 1...
+
+#include "Functions.h"
 
 void setup() {
   int speedLimit = scooter.getFromEEPROM("speedLimit") ?: DEFAULT_SPEED_LIMIT;

@@ -59,18 +59,18 @@ const char PROGMEM HTML_DATA[] = R"====(
     <p>
       <div>
         <label for="gtRaceSlider">Race Max Speed:</label>
-        <input type="range" id="gtRaceSlider" min="0" max="70" value="22" onchange="updateSpeed('gt', 'race', this.value)">
-        <span id="gtRaceValue">22</span>
+        <input type="range" id="gtRaceSlider" min="0" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'race', this.value)">
+        <span id="gtRaceValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="gtSportSlider">Sport Max Speed:</label>
-        <input type="range" id="gtSportSlider" min="0" max="70" value="22" onchange="updateSpeed('gt', 'sport', this.value)">
-        <span id="gtSportValue">22</span>
+        <input type="range" id="gtSportSlider" min="0" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'sport', this.value)">
+        <span id="gtSportValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="gtEcoSlider">Eco Max Speed:</label>
-        <input type="range" id="gtEcoSlider" min="0" max="70" value="22" onchange="updateSpeed('gt', 'eco', this.value)">
-        <span id="gtEcoValue">22</span>
+        <input type="range" id="gtEcoSlider" min="0" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'eco', this.value)">
+        <span id="gtEcoValue">{{SPEED_LIMIT}}</span>
       </div>
     </p>
   </div>
@@ -85,18 +85,18 @@ const char PROGMEM HTML_DATA[] = R"====(
     <p>
       <div>
         <label for="pSportSlider">Sport Max Speed:</label>
-        <input type="range" id="pSportSlider" min="0" max="40" value="22" onchange="updateSpeed('p', 'sport', this.value)">
-        <span id="pRaceValue">22</span>
+        <input type="range" id="pSportSlider" min="0" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', 'sport', this.value)">
+        <span id="pRaceValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="pDriveSlider">Drive Max Speed:</label>
-        <input type="range" id="pDriveSlider" min="0" max="40" value="22" onchange="updateSpeed('p', 'drive', this.value)">
-        <span id="pSportValue">22</span>
+        <input type="range" id="pDriveSlider" min="0" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', 'drive', this.value)">
+        <span id="pSportValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="pEcoSlider">Eco Max Speed:</label>
-        <input type="range" id="pEcoSlider" min="0" max="40" value="22" onchange="updateSpeed('p', eco', this.value)">
-        <span id="pEcoValue">22</span>
+        <input type="range" id="pEcoSlider" min="0" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', eco', this.value)">
+        <span id="pEcoValue">{{SPEED_LIMIT}}</span>
       </div>
     </p>
   </div>
@@ -108,13 +108,20 @@ const char PROGMEM HTML_DATA[] = R"====(
     <p>
       <div>
         <label for="limitSlider">Speed Limit:</label>
-        <input type="input" id="limitSlider" min="0" max="100" value="22" onchange="updateSpeedLimit(this.value)">
+        <input type="input" id="limitSlider" min="0" max="100" value="{{SPEED_LIMIT}}" onchange="updateSpeedLimit(this.value)">
         <span id="limitValue">km/h</span>
       </div>
     </p>
   </div>
 
   <script>
+    var defaultSpeedLimit = {{SPEED_LIMIT}};
+    var defaultSeriesId = {{SERIES_ID}};
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      initializeScooterModel();
+    });
+    
     function updateSpeed(model, mode, value) {
       document.getElementById(model + mode + 'Value').textContent = value;
       setSpeedGT(model, value, mode);
@@ -165,6 +172,19 @@ const char PROGMEM HTML_DATA[] = R"====(
           console.error("Error setting speed limit:", error);
         });
     }
+    
+    function initializeScooterModel() {
+      var seriesId = defaultSeriesId;
+    
+      if (seriesId === 0) {
+        document.getElementById("gtModel").checked = true;
+        updateScooterModel("0");
+      } else if (seriesId === 1) {
+        document.getElementById("pModel").checked = true;
+        updateScooterModel("1");
+      }
+    }
+
   </script>
 </body>
 </html>
