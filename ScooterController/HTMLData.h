@@ -59,17 +59,17 @@ const char PROGMEM HTML_DATA[] = R"====(
     <p>
       <div>
         <label for="gtRaceSlider">Race Max Speed:</label>
-        <input type="range" id="gtRaceSlider" min="0" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'race', this.value)">
+        <input type="range" id="gtRaceSlider" min="20" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'race', this.value)">
         <span id="gtRaceValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="gtSportSlider">Sport Max Speed:</label>
-        <input type="range" id="gtSportSlider" min="0" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'sport', this.value)">
+        <input type="range" id="gtSportSlider" min="20" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'sport', this.value)">
         <span id="gtSportValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="gtEcoSlider">Eco Max Speed:</label>
-        <input type="range" id="gtEcoSlider" min="0" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'eco', this.value)">
+        <input type="range" id="gtEcoSlider" min="20" max="70" value="{{SPEED_LIMIT}}" onchange="updateSpeed('gt', 'eco', this.value)">
         <span id="gtEcoValue">{{SPEED_LIMIT}}</span>
       </div>
     </p>
@@ -78,24 +78,24 @@ const char PROGMEM HTML_DATA[] = R"====(
   <div id="pInterface" style="display:none;">
     <h2>P Scooter Controls</h2>
     <p>
-      <button onclick="setSpeed('p', 50, 'sport')">Sport to 40</button>
-      <button onclick="setSpeed('p', 50, 'drive')">Drive to 40</button>
-      <button onclick="setSpeed('p', 30, 'eco')">Eco to 40</button>
+      <button onclick="setSpeed('p', 40, 'sport')">Sport to 40</button>
+      <button onclick="setSpeed('p', 40, 'drive')">Drive to 40</button>
+      <button onclick="setSpeed('p', 18, 'eco')">Eco to 18</button>
     </p>
     <p>
       <div>
         <label for="pSportSlider">Sport Max Speed:</label>
-        <input type="range" id="pSportSlider" min="0" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', 'sport', this.value)">
+        <input type="range" id="pSportSlider" min="20" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', 'sport', this.value)">
         <span id="pRaceValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="pDriveSlider">Drive Max Speed:</label>
-        <input type="range" id="pDriveSlider" min="0" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', 'drive', this.value)">
+        <input type="range" id="pDriveSlider" min="20" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', 'drive', this.value)">
         <span id="pSportValue">{{SPEED_LIMIT}}</span>
       </div>
       <div>
         <label for="pEcoSlider">Eco Max Speed:</label>
-        <input type="range" id="pEcoSlider" min="0" max="40" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', eco', this.value)">
+        <input type="range" id="pEcoSlider" min="0" max="18" value="{{SPEED_LIMIT}}" onchange="updateSpeed('p', eco', this.value)">
         <span id="pEcoValue">{{SPEED_LIMIT}}</span>
       </div>
     </p>
