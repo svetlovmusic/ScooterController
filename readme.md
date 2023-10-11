@@ -123,6 +123,42 @@ Example packet: 5A A5 02 3E 20 03 81 12 00 09 FF
 `12 00` - Data
 `09 FF` - Checksum
 
+## Adding a New Command with Data to the Scooter Controller and use it in project (example not contain real data)
+
+Steps:
+
+1. Open the `DataArrays.h` file and add a new constant byte array for the command packet. For example:
+
+   ```cpp
+   const byte newPacket[] = {0x5A, 0xA5, 0x02, 0x3E, 0x20, 0x03, 0xAB, 0x16, 0x00, 0xFF, 0xFF};
+   ```
+
+2. Open the `ScooterController.h` file and add a new entry in the `Command` enumeration for the new command. For example:
+
+   ```cpp
+   enum Command {
+	   RACE_SPEED_LIMIT,
+	   SPORT_SPEED_LIMIT,
+	   ECO_SPEED_LIMIT,
+	   LOCK,
+	   LAMP_ON,
+	   LAMP_OFF,
+	   NEW_PACKET, // New command
+	   COMMAND_COUNT
+   };
+   ```
+
+3. In the `ScooterController` constructor, add the new command to the `commands` array:
+
+   ```cpp
+   commands[NEW_PACKET] = {newPacket, sizeof(newPacket)};
+   ```
+
+4. Send NEW_PACKET:
+
+   ```cpp
+	scooter.sendCommand(ScooterController::NEW_PACKET);
+   ```
 
 
 
