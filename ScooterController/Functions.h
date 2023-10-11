@@ -13,7 +13,8 @@ ESP8266HTTPUpdateServer httpUpdater;
 
 ScooterController scooter;
 
-
+int speedLimit = DEFAULT_SPEED_LIMIT;
+int seriesId = DEFAULT_SERIES_ID;
 
 const byte* intToBytes(unsigned int speedKmph) {
     static byte newData[2];
@@ -34,9 +35,26 @@ String byteArrayToString(byte* buffer, int length) {
   return result;
 }
 
-void handleRoot() {
-  httpServer.send(200, "text/html", HTML_DATA);
+String getStringFromProgmem(const char *progmemPointer) {
+    String result;
+    char c;
+    while ((c = pgm_read_byte(progmemPointer++))) result += c;
+    return result;
 }
+
+String generateHtmlResponse() {
+    String html = getStringFromProgmem(HTML_DATA);
+    html.replace("{{SPEED_LIMIT}}", String(speedLimit));
+    html.replace("{{SERIES_ID}}", String(seriesId));
+    return html;
+}
+
+
+void handleRoot() {
+  String htmlResponse = generateHtmlResponse();
+  httpServer.send(200, "text/html", htmlResponse);
+}
+
 
 void handleSetSpeed() {
   String mode = httpServer.arg("mode"); // race, sport, eco
@@ -81,7 +99,8 @@ void handleSetScooterModel() {
   
   if(model >= 0 && model <= 255) {
     scooter.saveToEEPROM("seriesId", model);
-    httpServer.send(200, "text/plain", "Scooter Model set to: " + model);
+    String eepromStr = String(scooter.getFromEEPROM("seriesId"));
+    httpServer.send(200, "text/plain", "Scooter Model set to: " + eepromStr);
   } else {
     httpServer.send(400, "text/plain", "Invalid Scooter Model");
   }
