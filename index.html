@@ -5,10 +5,23 @@
   <title>HTMLData.h</title>
 </head>
 <body>
-  <pre>
-	<code>
-	  <?php include 'ScooterController/HTMLData.h'; ?>
-	</code>
-  </pre>
 </body>
+  <script>
+	  fetch('ScooterController/HTMLData.h')
+		.then(response => response.text())
+		.then(data => {
+			const regex = /.*====\((.*?)\)====/s;
+			const match = data.match(regex);
+			if (match) {
+				const extractedData = match[1];
+				const htmlElement = document.getElementsByTagName('body');
+				htmlElement[0].innerHTML = extractedData;
+			} else {
+				console.error('Pattern not found in HTMLData.h');
+			}
+		})
+		.catch(error => {
+			console.error('Error fetching HTMLData.h:', error);
+		});
+  </script>
 </html>
