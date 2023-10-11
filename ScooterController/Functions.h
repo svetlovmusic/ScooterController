@@ -75,7 +75,17 @@ void handleSetSpeedLimit() {
   }
 }
 
-
+void handleSetScooterModel() {
+  String modelStr = httpServer.arg("model");
+  int model = modelStr.toInt();
+  
+  if(model >= 0 && model <= 255) {
+    scooter.saveToEEPROM("seriesId", model);
+    httpServer.send(200, "text/plain", "Scooter Model set to: " + model);
+  } else {
+    httpServer.send(400, "text/plain", "Invalid Scooter Model");
+  }
+}
 
 
 
@@ -107,6 +117,7 @@ void startHttp() {
   httpServer.on("/", handleRoot);
   httpServer.on("/set_speed", handleSetSpeed);
   httpServer.on("/set_speed_limit", handleSetSpeedLimit);
+  httpServer.on("/set_scooter_model", handleSetScooterModel);
   httpServer.begin();
 
   MDNS.addService("http", "tcp", 80);
