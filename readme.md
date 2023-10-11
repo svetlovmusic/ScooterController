@@ -92,20 +92,23 @@ You need to provide the following parameters:
 - `useSerialBegin`: (optional) A boolean value indicating whether to initialize the Serial communication before sending the command. The default value is `true`.
 - `useSerialEnd`: (optional) A boolean value indicating whether to terminate the Serial communication after sending the command. The default value is `true`.
 
-If you have a template packet and you want to modify the data within it before sending, you can set the template packet to the byte array templatePacket (DataArrays.h), and pass the new data as the data parameter.
+If you have a template packet and you want to modify the data within it before sending, you can set the template packet to the byte array templatePacket (DataArrays.h), and pass the new data as the `data` parameter.
 Here's an example of how to assemble a new data array and send it along with the template packet:
 
 ```cpp
-set new data to templatePacket in `DataArrays.h`
+//set new data to templatePacket in `DataArrays.h`
 const byte templatePacket[] = {0x5A, 0xA5, 0x02, 0x3E, 0x20, 0x03, 0x8C, 0x00, 0x00, 0xFF, 0xFF};
 
 // Send the custom command with the modified data
 byte newTemplateData[] = {0x01, 0x00};
 scooter.sendCommand(ScooterController::TEMPLATE_PACKET, newTemplateData);
+
+  
+// example use TEMPLATE_PACKET without new data, just send TEMPLATE_PACKET as is
+// scooter.sendCommand(ScooterController::TEMPLATE_PACKET);
 ```
 
-In this example, we have a template packet with a length of 11 bytes. The data portion of the template starts at index 8. We then create a new byte array `newTemplateData` with two bytes of data. This newTemplateData modify the template packet before sending.
-
+In this example, we have a template packet with a length of 11 bytes. The data portion of the template starts at index 8. We then create a new byte array `newTemplateData` with two bytes of data. This newTemplateData modifies the template packet before sending.
 The data size of the packet is calculated automatically. If the template indicates that the size is 2 bytes, it means you can modify exactly 2 bytes in this packet by passing them.
 
 ## How to understand what's in the packet
